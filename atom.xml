@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fwangzil.github.io</id>
     <title>得寸进尺</title>
-    <updated>2020-04-03T08:28:18.161Z</updated>
+    <updated>2020-04-03T09:12:52.892Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fwangzil.github.io"/>
     <link rel="self" href="https://fwangzil.github.io/atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://fwangzil.github.io/images/avatar.png</logo>
     <icon>https://fwangzil.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 得寸进尺</rights>
+    <entry>
+        <title type="html"><![CDATA[疫情之下国人的脊梁与怯弱]]></title>
+        <id>https://fwangzil.github.io/post/yi-qing-zhi-xia-guo-ren-de-ji-liang-yu-qie-ruo/</id>
+        <link href="https://fwangzil.github.io/post/yi-qing-zhi-xia-guo-ren-de-ji-liang-yu-qie-ruo/">
+        </link>
+        <updated>2020-04-03T09:00:45.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<pre><code>  引子
+</code></pre>
+</blockquote>
+<h1 id=""></h1>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello]]></title>
         <id>https://fwangzil.github.io/post/hello/</id>
