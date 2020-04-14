@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fwangzil.github.io</id>
     <title>得寸进尺</title>
-    <updated>2020-04-14T07:00:46.172Z</updated>
+    <updated>2020-04-14T07:04:11.833Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fwangzil.github.io"/>
     <link rel="self" href="https://fwangzil.github.io/atom.xml"/>
@@ -16,7 +16,7 @@
         <link href="https://fwangzil.github.io/post/dan-he-xiao-ji-shang-de-minikube-shi-jian-yi/">
         </link>
         <updated>2020-04-14T06:57:19.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="零写在前面">零,写在前面</h1>
+        <content type="html"><![CDATA[<h2 id="零写在前面">零,写在前面</h2>
 <p>先大概说一下这次用来实验的服务器的状态:</p>
 <blockquote>
 <p>服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&gt;上失败了无数次的minikube的安装...<br>
@@ -69,8 +69,8 @@ Swap:          4095         383        3712
 <p>接下来就开始安装minikube了<br>
 docker相关的安装,大家应该都很熟悉这次就不写了</p>
 </blockquote>
-<h1 id="一安装minukube">一,安装Minukube</h1>
-<h2 id="1安装kubectl">1.安装kubectl</h2>
+<h2 id="一安装minukube">一,安装Minukube</h2>
+<h3 id="1安装kubectl">1.安装kubectl</h3>
 <pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools [17:50:52] C:130
 $ wget &quot;https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl&quot; -O &quot;/usr/local/bin/kubectl&quot;
 --2020-04-13 17:50:57--  https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl
@@ -88,7 +88,7 @@ Saving to: ‘/usr/local/bin/kubectl’
 <pre><code class="language-shell">$ sudo snap install kubectl --classic
 来安装kubectl
 </code></pre>
-<h2 id="2下载minikube">2.下载minikube</h2>
+<h3 id="2下载minikube">2.下载minikube</h3>
 <pre><code class="language-shell">
 # root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools [17:54:11] C:1
 $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
