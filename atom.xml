@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fwangzil.github.io</id>
     <title>得寸进尺</title>
-    <updated>2020-07-08T03:57:07.728Z</updated>
+    <updated>2020-07-08T09:08:58.449Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fwangzil.github.io"/>
     <link rel="self" href="https://fwangzil.github.io/atom.xml"/>
@@ -183,7 +183,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[进行中]一次服务器被吸血挖矿引发的思考]]></title>
+        <title type="html"><![CDATA[[佛系“连载”中]一次服务器被吸血挖矿引发的思考]]></title>
         <id>https://fwangzil.github.io/post/todo-one/</id>
         <link href="https://fwangzil.github.io/post/todo-one/">
         </link>
@@ -196,8 +196,9 @@
 <p>[计划中]记一次ctop实验的意外发现...</p>
 </blockquote>
 <!-- more -->
-<h1 id="todo">todo:</h1>
-<p>......</p>
+<h2 id="故事的开始">故事的开始:</h2>
+<p>​		这是一个平常的一天，我本来只是想随便登上自己的小鸡看一看（这次换到滴滴云了），在建立SSH连接就比平时慢了十几秒时我就隐隐约约感收到哪里不对了。直到我正式开始在黑黢黢的窗口中键入命令时我的不安到达了巅峰了，一个字——卡！我心一凉，我这都没开几个端口，密码已经不算简单了还是被搞了吗？</p>
+<p>​		果不其然，top一看，有一个眼熟的流氓进程吃掉了我的脑子（哦，不服务器的CPU）</p>
 ]]></content>
     </entry>
     <entry>
