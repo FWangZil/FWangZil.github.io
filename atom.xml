@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fwangzil.github.io</id>
     <title>得寸进尺</title>
-    <updated>2020-07-11T10:48:47.834Z</updated>
+    <updated>2020-07-11T10:53:35.990Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fwangzil.github.io"/>
     <link rel="self" href="https://fwangzil.github.io/atom.xml"/>
@@ -11,16 +11,16 @@
     <icon>https://fwangzil.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 得寸进尺</rights>
     <entry>
-        <title type="html"><![CDATA[《Clean Code》代码整洁之道读书笔记]]></title>
+        <title type="html"><![CDATA[《Clean Code》代码整洁之道]]></title>
         <id>https://fwangzil.github.io/post/lesslessclean-codegreatergreater-dai-ma-zheng-ji-zhi-dao-du-shu-bi-ji/</id>
         <link href="https://fwangzil.github.io/post/lesslessclean-codegreatergreater-dai-ma-zheng-ji-zhi-dao-du-shu-bi-ji/">
         </link>
         <updated>2020-07-11T10:45:50.000Z</updated>
         <summary type="html"><![CDATA[<p>前七章内容阅读与纸质书，后面的内容源于下面的链接：</p>
-<p>http://gdut_yy.gitee.io/doc-cleancode/ch17.html#_17-1-comments-%E6%B3%A8%E9%87%8A</p>
+<p><a href="http://gdut_yy.gitee.io/doc-cleancode/ch17.html#_17-1-comments-%E6%B3%A8%E9%87%8A">代码整洁之道</a></p>
 ]]></summary>
         <content type="html"><![CDATA[<p>前七章内容阅读与纸质书，后面的内容源于下面的链接：</p>
-<p>http://gdut_yy.gitee.io/doc-cleancode/ch17.html#_17-1-comments-%E6%B3%A8%E9%87%8A</p>
+<p><a href="http://gdut_yy.gitee.io/doc-cleancode/ch17.html#_17-1-comments-%E6%B3%A8%E9%87%8A">代码整洁之道</a></p>
 <!-- more -->
 <h2 id="how-do-you-write-functions-like-this-如何写出这样的函数"><strong>HOW DO YOU WRITE FUNCTIONS LIKE THIS? 如何写出这样的函数</strong></h2>
 <p>Writing software is like any other kind of writing. When you write a paper or an article, you get your thoughts down first, then you massage it until it reads well. The first draft might be clumsy and disorganized, so you wordsmith it and restructure it and refine it until it reads the way you want it to read.</p>
