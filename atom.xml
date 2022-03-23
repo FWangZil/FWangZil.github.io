@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fwangzil.github.io</id>
+    <title>得寸进尺</title>
+    <updated>2022-03-23T16:53:21.218Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://fwangzil.github.io"/>
+    <link rel="self" href="https://fwangzil.github.io/atom.xml"/>
+    <subtitle>日就月将，学有缉熙于光明。</subtitle>
+    <logo>https://fwangzil.github.io/images/avatar.png</logo>
+    <icon>https://fwangzil.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, 得寸进尺</rights>
+    <entry>
+        <title type="html"><![CDATA[Rust Leetcode 记录]]></title>
+        <id>https://fwangzil.github.io/post/rust-leetcode-ji-lu/</id>
+        <link href="https://fwangzil.github.io/post/rust-leetcode-ji-lu/">
+        </link>
+        <updated>2022-03-23T15:55:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="2022-03-23">2022-03-23</h2>
+<h3 id="217-存在重复元素easy">217. 存在重复元素【easy】</h3>
+<p>https://leetcode-cn.com/problems/contains-duplicate/submissions/</p>
+<pre><code class="language-rust">use std::collections::HashMap;
+impl Solution {
+    pub fn contains_duplicate(nums: Vec&lt;i32&gt;) -&gt; bool {
+        let mut hmap = HashMap::new();
+        for num in nums {
+            match hmap.get(&amp;num) {
+                Some(x) =&gt; {
+                    return true;
+                },
+                None =&gt; {
+                    hmap.insert(num,true);
+                },
+            }
+        }
+        return false;
+    }
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《Clean Code》代码整洁之道]]></title>
+        <id>https://fwangzil.github.io/post/lesslessclean-codegreatergreater-dai-ma-zheng-ji-zhi-dao-du-shu-bi-ji/</id>
+        <link href="https://fwangzil.github.io/post/lesslessclean-codegreatergreater-dai-ma-zheng-ji-zhi-dao-du-shu-bi-ji/">
+        </link>
+        <updated>2020-07-11T10:45:50.000Z</updated>
+        <summary type="html"><![CDATA[<p>前七章内容阅读与纸质书，后面的内容源于下面的链接：</p>
+<p><a href="http://gdut_yy.gitee.io/doc-cleancode/ch17.html#_17-1-comments-%E6%B3%A8%E9%87%8A">代码整洁之道</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>前七章内容阅读与纸质书，后面的内容源于下面的链接：</p>
+<p><a href="http://gdut_yy.gitee.io/doc-cleancode/ch17.html#_17-1-comments-%E6%B3%A8%E9%87%8A">代码整洁之道</a></p>
+<!-- more -->
+<h2 id="how-do-you-write-functions-like-this-如何写出这样的函数"><strong>HOW DO YOU WRITE FUNCTIONS LIKE THIS? 如何写出这样的函数</strong></h2>
+<p>Writing software is like any other kind of writing. When you write a paper or an article, you get your thoughts down first, then you massage it until it reads well. The first draft might be clumsy and disorganized, so you wordsmith it and restructure it and refine it until it reads the way you want it to read.</p>
+<blockquote>
+<p>写代码和写别的东西很像。在写论文或文章时，你先想什么就写什么，然后再打磨它。初稿也许粗陋无序，你就斟酌推敲，直至达到你心目中的样子。</p>
+</blockquote>
+<p>When I write functions, they come out long and complicated. They have lots of indenting and nested loops. They have long argument lists. The names are arbitrary, and there is duplicated code. But I also have a suite of unit tests that cover every one of those clumsy lines of code.</p>
+<blockquote>
+<p>我写函数时，一开始都冗长而复杂。有太多缩进和嵌套循环。有过长的参数列表。名称是随意取的，也会有重复的代码。不过我会配上一套单元测试，覆盖每行丑陋的代码。</p>
+</blockquote>
+<p>So then I massage and refine that code, splitting out functions, changing names, eliminating duplication. I shrink the methods and reorder them. Sometimes I break out whole classes, all the while keeping the tests passing.</p>
+<blockquote>
+<p>然后我打磨这些代码，分解函数、修改名称、消除重复。我缩短和重新安置方法。有时我还拆散类。同时保持测试通过。最后，遵循本章列出的规则，我组装好这些函数。</p>
+</blockquote>
+<p>In the end, I wind up with functions that follow the rules I’ve laid down in this chapter. I don’t write them that way to start. I don’t think anyone could.</p>
+<blockquote>
+<p>我并不从一开始就按照规则写函数。我想没人做得到。</p>
+</blockquote>
+<ul>
+<li>编程艺术是且一直就是语言设计的艺术。</li>
+<li>注释的恰当用法是弥补我们在用代码表达意图时遭遇的失败。注意，我用了“失败”一词。我是说真的。注释总是一种失败。我们总无法找到不用注释就能表达自我的方法，所以总要有注释，这并不值得庆贺。
+<ul>
+<li>Ps. 所以还是得写，因为我现在还无法避免所有的“失败”</li>
+</ul>
+</li>
+<li>我为什么要极力贬低注释？因为注释会撒谎。也不是说总是如此或有意如此，但出现得实在太频繁。注释存在的时间越久，就离其所描述的代码越远，越来越变得全然错误。原因很简单。程序员不能坚持维护注释。</li>
+</ul>
+<p>Again, we see the complimentary nature of these two definitions; they are virtual opposites! This exposes the fundamental dichotomy between objects and data structures:</p>
+<blockquote>
+<p>我们再次看到这两种定义的本质；它们是截然对立的。这说明了对象与数据结构之间的二分原理：</p>
+</blockquote>
+<p>Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.</p>
+<blockquote>
+<p>过程式代码（使用数据结构的代码）便于在不改动既有数据结构的前提下添加新函数。面向对象代码便于在不改动既有函数的前提下添加新类。</p>
+</blockquote>
+<p>The complement is also true:</p>
+<blockquote>
+<p>反过来讲也说得通：</p>
+</blockquote>
+<p>Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change.</p>
+<blockquote>
+<p>过程式代码难以添加新数据结构，因为必须修改所有函数。面向对象代码难以添加新函数，因为必须修改所有类。</p>
+</blockquote>
+<p>So, the things that are hard for OO are easy for procedures, and the things that are hard for procedures are easy for OO!</p>
+<blockquote>
+<p>所以，对于面向对象较难的事，对于过程式代码却较容易，反之亦然！</p>
+</blockquote>
+<p>In any complex system there are going to be times when we want to add new data types rather than new functions. For these cases objects and OO are most appropriate. On the other hand, there will also be times when we’ll want to add new functions as opposed to data types. In that case procedural code and data structures will be more appropriate.</p>
+<blockquote>
+<p>在任何一个复杂系统中，都会有需要添加新数据类型而不是新函数的时候。这时，对象和面向对象就比较适合。另一方面，也会有想要添加新函数而不是数据类型的时候。在这种情况下，过程式代码和数据结构更合适。</p>
+</blockquote>
+<p>Mature programmers know that the idea that everything is an object is a myth. Sometimes you really do want simple data structures with procedures operating on them.</p>
+<p>Wrappers like the one we defined for ACMEPort can be very useful. In fact, wrapping third-party APIs is a best practice. When you wrap a third-party API, you minimize your dependencies upon it: You can choose to move to a different library in the future without much penalty. Wrapping also makes it easier to mock out third-party calls when you are testing your own code.</p>
+<blockquote>
+<p>类似我们为 ACMEPort 定义的这种打包类非常有用。实际上，将第三方 API 打包是个良好的实践手段。当你打包一个第三方 API，你就降低了对它的依赖：未来你可以不太痛苦地改用其他代码库。在你测试自己的代码时，打包也有助于模拟第三方调用。</p>
+</blockquote>
+<p>One final advantage of wrapping is that you aren’t tied to a particular vendor’s API design choices. You can define an API that you feel comfortable with. In the preceding example, we defined a single exception type for port device failure and found that we could write much cleaner code.</p>
+<blockquote>
+<p>打包的好处还在于你不必绑死在某个特定厂商的 API 设计上。你可以定义自己感觉舒服的 API。在上例中，我们为 port 设备错误定义了一个异常类型，然后发现这样能写出更整洁的代码。</p>
+</blockquote>
+<p>Often a single exception class is fine for a particular area of code. The information sent with the exception can distinguish the errors. Use different classes only if there are times when you want to catch one exception and allow the other one to pass through.</p>
+<blockquote>
+<p>对于代码的某个特定区域，单一异常类通常可行。伴随异常发送出来的信息能够区分不同错误。如果你想要捕获某个异常，并且放过其他异常，就使用不同的异常类。</p>
+</blockquote>
+<hr>
+<p>在此之前的内容主要是通过纸质书阅读的，笔记难以整理（其实是懒）就零散放在上面了，接下来几章主要通过大佬的在线翻译（见顶部链接）阅读的，比较好进行记录。</p>
+<h2 id="第八章-边界">第八章 边界</h2>
+<ul>
+<li>我们没有测试第三方代码的职责，但为要使用的第三方代码编写测试，可能最符合我们的利益。</li>
+</ul>
+<p>Learning the third-party code is hard. Integrating the third-party code is hard too. Doing both at the same time is doubly hard. What if we took a different approach? Instead of experimenting and trying out the new stuff in our production code, we could write some tests to explore our understanding of the third-party code. Jim Newkirk calls such tests learning tests.1</p>
+<blockquote>
+<p>学习第三方代码很难。整合第三方代码也很难。同时做这两件事难上加难。如果我们采用不同的做法呢？不要在生产代码中试验新东西，而是编写测试来遍览和理解第三方代码。Jim Newkirk 把这叫做学习性测试（learning tests）。</p>
+</blockquote>
+<p>In learning tests we call the third-party API, as we expect to use it in our application. We’re essentially doing controlled experiments that check our understanding of that API. The tests focus on what we want out of the API.</p>
+<blockquote>
+<p>在学习性测试中，我们如在应用中那样调用第三方代码。我们基本上是在通过核对试验来检测自己对那个 API 的理解程度。测试聚焦于我们想从 API 得到的东西。</p>
+</blockquote>
+<h2 id="第九章-单元测试">第九章 单元测试</h2>
+<p>Some of you reading this might sympathize with that decision. Perhaps, long in the past, you wrote tests of the kind that I wrote for that Timer class. It’s a huge step from writing that kind of throw-away test, to writing a suite of automated unit tests. So, like the team I was coaching, you might decide that having dirty tests is better than having no tests.</p>
+<blockquote>
+<p>有些读者可能会同意这种做法。或许，在很久以前，你也用过我为那个 Timer 类写测试的方法。从编写那种用后即扔的测试到编写全套自动化单元测试是一大进步。所以，就像那个我指导过的团队一样，你或许也会认为脏测试好过没测试。</p>
+</blockquote>
+<p>What this team did not realize was that having dirty tests is equivalent to, if not worse than, having no tests. The problem is that tests must change as the production code evolves. The dirtier the tests, the harder they are to change. The more tangled the test code, the more likely it is that you will spend more time cramming new tests into the suite than it takes to write the new production code. As you modify the production code, old tests start to fail, and the mess in the test code makes it hard to get those tests to pass again. So the tests become viewed as an ever-increasing liability.</p>
+<blockquote>
+<p>这个团队没有意识到的是，脏测试等同于——如果不是坏于的话 ——没测试。问题在于，测试必须随生产代码的演进而修改。测试越脏，就越难修改。测试代码越缠结，你就越有可能花更多时间塞进新测试，而不是编写新生产代码。修改生产代码后，旧测试就会开始失败，而测试代码中乱七八糟的东西将阻碍代码再次通过。于是，测试变得就像是不断翻番的债务。</p>
+</blockquote>
+<h3 id="93-整洁的测试">9.3-整洁的测试</h3>
+<p>The BUILD-OPERATE-CHECK2 pattern is made obvious by the structure of these tests. Each of the tests is clearly split into three parts. The first part builds up the test data, the second part operates on that test data, and the third part checks that the operation yielded the expected results.</p>
+<blockquote>
+<p>这些测试显然呈现了构造-操作-检验（BUILD-OPERATE-CHECK）模式。每个测试都清晰地拆分为三个环节。第一个环节构造测试数据，第二个环节操作测试数据，第三个部分检验操作是否得到期望的结果。</p>
+</blockquote>
+<h3 id="95-first">9.5-F.I.R.S.T</h3>
+<p>Timely The tests need to be written in a timely fashion. Unit tests should be written just before the production code that makes them pass. If you write tests after the production code, then you may find the production code to be hard to test. You may decide that some production code is too hard to test. You may not design the production code to be testable.</p>
+<blockquote>
+<p>及时（Timely）测试应及时编写。单元测试应该恰好在使其通过的生产代码之前编写。如果在编写生产代码之后编写测试，你会发现生产代码难以测试。你可能会认为某些生产代码本身难以测试。你可能不会去设计可测试的代码。</p>
+</blockquote>
+<h2 id="第十章-类">第十章-类</h2>
+<p>在类这一章节之中，我试着将其中大部分的概念迁移到Go中的interface{}进行理解。</p>
+<p>The name of a class should describe what responsibilities it fulfills. In fact, naming is probably the first way of helping determine class size. If we cannot derive a concise name for a class, then it’s likely too large. The more ambiguous the class name, the more likely it has too many responsibilities. For example, class names including weasel words like Processor or Manager or Super often hint at unfortunate aggregation of responsibilities.</p>
+<blockquote>
+<p>类的名称应当描述其权责。实际上，命名正是帮助判断类的长度的第一个手段。如果无法为某个类命以精确的名称，这个类大概就太长了。类名越含混，该类越有可能拥有过多权责。例如，如果类名中包括含义模糊的词，如 Processor 或 Manager 或 Super，这种现象往往说明有不恰当的权责聚集情况存在。</p>
+</blockquote>
+<h3 id="内聚">内聚</h3>
+<ul>
+<li>当类丧失了内聚性，就拆分它！</li>
+</ul>
+<p>So breaking a large function into many smaller functions often gives us the opportunity to split several smaller classes out as well. This gives our program a much better organization and a more transparent structure.</p>
+<blockquote>
+<p>所以，将大函数拆为许多小函数，往往也是将类拆分为多个小类的时机。程序会更加有组织，也会拥有更为透明的结构。</p>
+</blockquote>
+<h3 id="103-为了修改而组织">10.3-为了修改而组织</h3>
+<p>If a system is decoupled enough to be tested in this way, it will also be more flexible and promote more reuse. The lack of coupling means that the elements of our system are better isolated from each other and from change. This isolation makes it easier to understand each element of the system.</p>
+<blockquote>
+<p>如果系统解耦到足以这样测试的程度，也就更加灵活，更加可复用。部件之间的解耦代表着系统中的元素互相隔离得很好。隔离也让对系统每个元素的理解变得更加容易。</p>
+</blockquote>
+<p>By minimizing coupling in this way, our classes adhere to another class design principle known as the Dependency Inversion Principle (DIP).5 In essence, the DIP says that our classes should depend upon abstractions, not on concrete details.</p>
+<blockquote>
+<p>通过降低连接度，我们的类就遵循了另一条类设计原则，依赖倒置原则（Dependency Inversion Principle，DIP）。本质而言，DIP 认为类应当依赖于抽象而不是依赖于具体细节。</p>
+</blockquote>
+<h2 id="第11章-系统">第11章-系统</h2>
+<p>It is a myth that we can get systems “right the first time.” Instead, we should implement only today’s stories, then refactor and expand the system to implement new stories tomorrow. This is the essence of iterative and incremental agility. Test-driven development, refactoring, and the clean code they produce make this work at the code level.</p>
+<blockquote>
+<p>“一开始就做对系统”纯属神话。反之，我们应该只去实现今天的用户故事，然后重构，明天再扩展系统、实现新的用户故事。这就是迭代和增量敏捷的精髓所在。测试驱动开发、重构以及它们打造出的整洁代码，在代码层面保证了这个过程的实现。</p>
+</blockquote>
+<p>不要过早动手</p>
+<p>We all know it is best to give responsibilities to the most qualified persons. We often forget that it is also best to postpone decisions until the last possible moment. This isn’t lazy or irresponsible; it lets us make informed choices with the best possible information. A premature decision is a decision made with suboptimal knowledge. We will have that much less customer feedback, mental reflection on the project, and experience with our implementation choices if we decide too soon.</p>
+<blockquote>
+<p>众所周知，最好是授权给最有资格的人。但我们常常忘记了，延迟决策至最后一刻也是好手段。这不是懒惰或不负责；它让我们能够基于最有可能的信息做出选择。提前决策是一种预备知识不足的决策。如果决策太早，就会缺少太多客户反馈、关于项目的思考和实施经验。</p>
+</blockquote>
+<p>Whether you are designing systems or individual modules, never forget to use the simplest thing that can possibly work.</p>
+<blockquote>
+<p>无论是设计系统或单独的模块，别忘了使用大概可工作的最简单方案。</p>
+</blockquote>
+<h2 id="第-12-章-emergence-迭进">第 12 章 Emergence 迭进</h2>
+<p>According to Kent, a design is “simple” if it follows these rules:</p>
+<blockquote>
+<p>据 Kent 所述，只要遵循以下规则，设计就能变得“简单”：</p>
+</blockquote>
+<ul>
+<li>Runs all the tests</li>
+<li>Contains no duplication</li>
+<li>Expresses the intent of the programmer</li>
+<li>Minimizes the number of classes and methods</li>
+</ul>
+<hr>
+<blockquote>
+<p>运行所有测试；不可重复；表达了程序员的意图；尽可能减少类和方法的数量；</p>
+</blockquote>
+<p>The rules are given in order of importance.</p>
+<blockquote>
+<p>以上规则按其重要程度排列。</p>
+</blockquote>
+<p>Remarkably, following a simple and obvious rule that says we need to have tests and run them continuously impacts our system’s adherence to the primary OO goals of low coupling and high cohesion. Writing tests leads to better designs.</p>
+<blockquote>
+<p>遵循有关编写测试并持续运行测试的简单、明确的规则，系统就会更贴近 OO 低耦合度、高内聚度的目标。编写测试引致更好的设计。</p>
+</blockquote>
+<p>During this refactoring step, we can apply anything from the entire body of knowledge about good software design. We can increase cohesion, decrease coupling, separate concerns, modularize system concerns, shrink our functions and classes, choose better names, and so on. This is also where we apply the final three rules of simple design: Eliminate duplication, ensure expressiveness, and minimize the number of classes and methods.</p>
+<blockquote>
+<p>在重构过程中，可以应用有关优秀软件设计的一切知识。提升内聚性，降低耦合度，切分关注面，模块化系统性关注面，缩小函数和类的尺寸，选用更好的名称，如此等等。这也是应用简单设计后三条规则的地方：消除重复，保证表达力，尽可能减少类和方法的数量。</p>
+</blockquote>
+<p>Most of us have had the experience of working on convoluted code. Many of us have produced some convoluted code ourselves. It’s easy to write code that we understand, because at the time we write it we’re deep in an understanding of the problem we’re trying to solve. Other maintainers of the code aren’t going to have so deep an understanding.</p>
+<blockquote>
+<p>我们中的大多数人都经历过费解代码的纠缠。我们中的许多人自己就编写过费解的代码。写出自己能理解的代码很容易，因为在写这些代码时，我们正深入于要解决的问题中。代码的其他维护者不会那么深入，也就不易理解代码。</p>
+</blockquote>
+<p>所以有一个角度的阅读源码的方式就是从测试开始（当然前提是准备阅读的目标拥有足够优秀的测试代码，并且覆盖率够高。）</p>
+<p>Well-written unit tests are also expressive. A primary goal of tests is to act as documentation by example. Someone reading our tests should be able to get a quick understanding of what a class is all about.</p>
+<blockquote>
+<p>编写良好的单元测试也具有表达性。测试的主要目的之一就是通过实例起到文档的作用。读到测试的人应该能很快理解某个类是做什么的。</p>
+</blockquote>
+<h2 id="第-13-章-concurrency-并发编程">第 13 章 Concurrency 并发编程</h2>
+<p>“Objects are abstractions of processing. Threads are abstractions of schedule.”</p>
+<p>—James O. Coplien1</p>
+<blockquote>
+<p>“对象是过程的抽象。线程是调度的抽象。”——James O</p>
+</blockquote>
+<p>Here are a few more balanced sound bites regarding writing concurrent software:</p>
+<blockquote>
+<p>下面是一些有关编写并发软件的中肯说法：</p>
+</blockquote>
+<ul>
+<li>Concurrency incurs some overhead, both in performance as well as writing additional code.</li>
+<li>Correct concurrency is complex, even for simple problems.</li>
+<li>Concurrency bugs aren’t usually repeatable, so they are often ignored as one-offs2 instead of the true defects they are.</li>
+<li>Concurrency often requires a fundamental change in design strategy.</li>
+</ul>
+<blockquote>
+<p>并发会在性能和编写额外代码上增加一些开销；正确的并发是复杂的，即便对于简单的问题也是如此；并发缺陷并非总能重现，所以常被看做偶发事件而忽略，未被当做真的缺陷看待；并发常常需要对设计策略的根本性修改。</p>
+</blockquote>
+<ul>
+<li>Concurrency-related code has its own life cycle of development, change, and tuning.</li>
+<li>Concurrency-related code has its own challenges, which are different from and often more difficult than nonconcurrency-related code.</li>
+<li>The number of ways in which miswritten concurrency-based code can fail makes it challenging enough without the added burden of surrounding application code.</li>
+</ul>
+<hr>
+<blockquote>
+<p>并发相关代码有自己的开发、修改和调优生命周期；开发相关代码有自己要对付的挑战，和非并发相关代码不同，而且往往更为困难；即便没有周边应用程序增加的负担，写得不好的并发代码可能的出错方式数量也已经足具挑战性。</p>
+</blockquote>
+<p>Recommendation: Keep your concurrency-related code separate from other code.6</p>
+<blockquote>
+<p>建议：分离并发相关代码与其他代码。</p>
+</blockquote>
+<h2 id="第-14-章-successive-refinement-逐步改进">第 14 章 Successive Refinement 逐步改进</h2>
+<p>Let me set your mind at rest. I did not simply write this program from beginning to end in its current form. More importantly, I am not expecting you to be able to write clean and elegant programs in one pass. If we have learned anything over the last couple of decades, it is that programming is a craft more than it is a science. To write clean code, you must first write dirty code and then clean it.</p>
+<blockquote>
+<p>先放松一下神经。这段程序并非从一开始就写成现在的样子。更重要的是，我也没指望你能够一次过写出整洁、漂亮的程序。如果说我们从过去几十年里面学到什么东西的话，那就是编程是一种技艺甚于科学的东西。要编写整洁代码，必须先写肮脏代码，然后再清理它。</p>
+</blockquote>
+<p>Incrementalism demanded that I get this working quickly before making any other changes. Indeed, the fix was not too difficult. I just had to move the check for null. It was no longer the boolean being null that I needed to check; it was the ArgumentMarshaller.</p>
+<blockquote>
+<p>渐进主义要求我在做其他修改之前迅速修正这个问题。修正并不费劲。我只是把对 null 值的检查移了个位置。再也不用检测 bollean 是否为 null，而是检查 ArgumentMarshaler 是否为 null。</p>
+</blockquote>
+<p>14,,15,16 三章基本都是实践内容，但是由于本书的例子是基于Java构建的，而本人对Java确实不太熟悉（案例必然涉及到Java世界的一些特有特性或者轮子），便决定不在这三章中琢磨太多时间。直接将重心放回了最后总结的章节。</p>
+<h2 id="第-17-章-smells-and-heuristics-味道与启发">第 17 章 Smells and Heuristics 味道与启发</h2>
+<p>本章内容相当于之前内容的一个总结，所以英文原文我就暂且不一并摘录了。另外，全文都不保证完整，毕竟这只是我的一篇笔记。一般情况下我只会记下让我有感触的部分。</p>
+<ul>
+<li>无关或不正确的注释就是废弃的注释。注释会很快过时。最好别编写将被废弃的注释。如果发现废弃的注释，最好尽快更新或删除掉。废弃的注释会远离它们曾经描述的代码，变成代码中无关和误导的浮岛。</li>
+<li>如果注释描述的是某种充分自我描述了的东西，那么注释就是多余的。</li>
+</ul>
+<p>下方的G系列来自 17.4 一般性问题</p>
+<h3 id="g2明显的行为未被实现">G2：明显的行为未被实现</h3>
+<ul>
+<li>
+<p>遵循“最小惊异原则”（The Principle of Least Surprise）[2]，函数或类应该实现其他程序员有理由期待的行为。例如，考虑一个将日期名称翻译为表示该日期的枚举的函数。</p>
+<pre><code class="language-java">Day day = DayDate.StringToDay(String dayName);
+</code></pre>
+</li>
+<li>
+<p>如果明显的行为未被实现，读者和用户就不能再依靠他们对函数名称的直觉。他们不再信任原作者，不得不阅读代码细节。</p>
+</li>
+</ul>
+<h3 id="g3不正确的边界行为">G3：不正确的边界行为</h3>
+<ul>
+<li>没什么可以替代谨小慎微。每种边界条件、每种极端情形、每个异常都代表了某种可能搞乱优雅而直白的算法的东西。别依赖直觉。追索每种边界条件，并编写测试。</li>
+</ul>
+<h3 id="g5重复">G5：重复</h3>
+<ul>
+<li>每次看到重复代码，都代表遗漏了抽象。重复的代码可能成为子程序或干脆是另一个类。将重复代码叠放进类似的抽象，增加了你的设计语言的词汇量。其他程序员可以用到你创建的抽象设施。编码变得越来越快，错误越来越少，因为你提升了抽象层级。</li>
+<li>更隐蔽的形态是采用类似算法但具体代码行不同的模块。这也是一种重复，可以使用模板方法模式[4]或策略模式[5]来修正。</li>
+</ul>
+<h3 id="g6在错误的抽象层级上的代码">G6：在错误的抽象层级上的代码</h3>
+<ul>
+<li>良好的软件设计要求分离位于不同层级的概念，将它们放到不同容器中。有时，这些容器是基类或派生类，有时是源文件、模块或组件。无论哪种情况，分离都要完整。较低层级概念和较高层级概念不应混杂在一起。</li>
+</ul>
+<h3 id="g10-vertical-separation">G10: Vertical Separation</h3>
+<ul>
+<li>变量和函数应该在靠近被使用的地方定义。本地变量应该正好在其首次被使用的位置上面声明，垂直距离要短。本地变量不该在其被使用之处几百行以外声明。</li>
+<li>私有函数应该刚好在其首次被使用的位置下面定义。私有函数属于整个类，但我们还是要限制调用和定义之间的垂直距离。找个私有函数，应该只是从其首次被使用处往下看一点那么简单。</li>
+</ul>
+<h3 id="g11前后不一致">G11：前后不一致</h3>
+<ul>
+<li>如果在特定函数中用名为 response 的变量来持有 HttpServletResponse 对象，则在其他用到 HttpServletResponse 对象的函数中也用同样的变量名。如果将某个方法命名为 processVerificationRequest，则给处理其他请求类型的方法取类似的名字，例如 processDeletion Request。</li>
+</ul>
+<h3 id="g17位置错误的权责">G17：位置错误的权责</h3>
+<ul>
+<li>最小惊异原则在这里起作用了。代码应该放在读者自然而然期待它所在的地方。PI 常量应该在出现在声明三角函数的地方。OVERTIME_RATE 常量应该在 HourlyPayCalculator 类中声明。</li>
+</ul>
+<h3 id="g20函数名称应该表达其行为">G20：函数名称应该表达其行为</h3>
+<ul>
+<li>如果你必须查看函数的实现（或文档）才知道它是做什么的，就该换个更好的函数名，或者重新安排功能代码，放到有较好名称的函数中。</li>
+</ul>
+<h3 id="g26准确">G26：准确</h3>
+<ul>
+<li>期望某个查询的第一次匹配就是唯一匹配可能过于天真。用浮点数表示货币几近于犯罪。因为你不想做并发更新就避免使用锁和/或事务管理往好处说也是一种懒惰行为。在可以用 List 的时候非要把变量声明为 ArrayList 就过分拘束了。把所有变量设置为 protected 却不够自律。</li>
+<li>在代码中做决定时，确认自己足够准确。明确自己为何要这么做，如果遇到异常情况如何处理。别懒得理会决定的准确性。如果你打算调用可能返回 null 的函数，确认自己检查了 null 值。如果查询你认为是数据库中唯一的记录，确保代码检查不存在其他记录。如果要处理货币数据，使用整数[11]，并恰当地处理四舍五入。如果可能有并发更新，确认你实现了某种锁定机制。</li>
+<li>代码中的含糊和不准确要么是意见不同的结果，要么源于懒惰。无论原因是什么，都要消除。</li>
+</ul>
+<h3 id="g28封装条件">G28：封装条件</h3>
+<ul>
+<li>
+<p>如果没有 if 或 while 语句的上下文，布尔逻辑就难以理解。应该把解释了条件意图的函数抽离出来。</p>
+<pre><code class="language-java">// 例如：
+
+if (shouldBeDeleted(timer))
+is preferable to
+
+// 好于
+
+if (timer.hasExpired() &amp;&amp; !timer.isRecurrent())
+</code></pre>
+</li>
+</ul>
+<h3 id="g33封装边界条件">G33：封装边界条件</h3>
+<ul>
+<li>
+<p>边界条件难以追踪。把处理边界条件的代码集中到一处，不要散落于代码中。我们不想见到四处散见的+1 和－1 字样。</p>
+<pre><code class="language-java">if(level + 1 &lt; tags.length)
+{
+  parts = new Parse(body, tags, level + 1, offset + endTag);
+  body = null;
+}
+
+// 注意，level + 1 出现了两次。这是个应该封装到名为 nextLevel 之类的变量中的边界条件。
+
+int nextLevel = level + 1;
+if(nextLevel &lt; tags.length)
+{
+  parts = new Parse(body, tags, nextLevel, offset + endTag);
+  body = null;
+}
+</code></pre>
+</li>
+</ul>
+<hr>
+<p>17.6 名称</p>
+<h3 id="n2名称应与抽象层级相符">N2：名称应与抽象层级相符</h3>
+<ul>
+<li>不要取沟通实现的名称；取反映类或函数抽象层级的名称。这样做不容易。人们擅长于混杂抽象层级。每次浏览代码，你总会发现有些变量的名称层级太低。你应当趁机为之改名。要让代码可读，需要持续不断的改进。看看下面的 Modem 接口：</li>
+</ul>
+<h3 id="n5为较大作用范围选用较长名称">N5：为较大作用范围选用较长名称</h3>
+<ul>
+<li>名称的长度应与作用范围的广泛度相关。对于较小的作用范围，可以用很短的名称，而对于较大作用范围就该用较长的名称。
+<ul>
+<li>类似 i 和 j 之类的变量名对于作用范围在 5 行之内的情形没问题。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[10年创业老兵：技术创业者应该注意什么？-- 极客Live笔记]]></title>
+        <id>https://fwangzil.github.io/post/10-nian-chuang-ye-lao-bing-ji-zhu-chuang-ye-zhe-ying-gai-zhu-yi-shi-me-ji-ke-live-bi-ji/</id>
+        <link href="https://fwangzil.github.io/post/10-nian-chuang-ye-lao-bing-ji-zhu-chuang-ye-zhe-ying-gai-zhu-yi-shi-me-ji-ke-live-bi-ji/">
+        </link>
+        <updated>2020-07-08T03:55:12.000Z</updated>
+        <summary type="html"><![CDATA[<p>49岁程序员、涛思数据创始人陶建辉分享他的创业故事</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>49岁程序员、涛思数据创始人陶建辉分享他的创业故事</p>
+<!-- more -->
+<h3 id="一-如何坚持">一 如何坚持</h3>
+<ul>
+<li>创造价值
+<ul>
+<li>如果是真的在创造社会价值，就会有决心有信心</li>
+</ul>
+</li>
+<li>抵制诱惑</li>
+<li>坐冷板凳的决心</li>
+</ul>
+<h3 id="二-如何组建团队">二 如何组建团队</h3>
+<ul>
+<li>尽最大可能邀请特别牛逼的人加入
+<ul>
+<li>在自己最大的能力范围内</li>
+<li>花自己百分之五十之上的精力</li>
+</ul>
+</li>
+<li>梦想，理想，情怀</li>
+<li>待遇一定要到位</li>
+<li>让团队对未来对理想高度认同</li>
+<li>背水一战才有机会</li>
+</ul>
+<h3 id="三-产品">三 产品</h3>
+<ul>
+<li>不能忽略商业的本质</li>
+<li>产品一定要简单不能复杂
+<ul>
+<li>稳定</li>
+<li>可靠</li>
+<li>要学会做减法（是不是功能做多了）</li>
+</ul>
+</li>
+<li>做产品，一定要聚焦</li>
+</ul>
+<h3 id="四-市场与销售">四 市场与销售</h3>
+<ul>
+<li>技术人一定要学会营销
+<ul>
+<li>高度重视市场销售</li>
+</ul>
+</li>
+<li>确定市场活动是给谁看的
+<ul>
+<li>合作伙伴</li>
+<li>vc</li>
+<li>最终用户</li>
+</ul>
+</li>
+<li>通过分发渠道确定策略
+<ul>
+<li>抖音</li>
+<li>微博</li>
+<li>传统媒体</li>
+</ul>
+</li>
+<li>要对渠道宣传效用建立一个测试的机制</li>
+<li>克服胆怯（脸皮要厚）
+<ul>
+<li>争取一切的可能和机会展示自己，展示自己的产品
+<ul>
+<li>活动，展会，比赛，直播</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>每天在渠道上展示自己的状态
+<ul>
+<li>保持曝光</li>
+</ul>
+</li>
+<li>产品的宣传一定要简单
+<ul>
+<li>能够一句话讲清楚，让大家记住</li>
+</ul>
+</li>
+<li>技术创业，销售和市场一定要自己上
+<ul>
+<li>可以在后期授权，但是一定要抓到自己的手上</li>
+<li>销售和市场才是公司的命脉</li>
+<li>先把对应市场的前几单自己打下来，再招来专业的人（这个对应市场的有经验的人）接受这一部分工作</li>
+</ul>
+</li>
+</ul>
+<h3 id="作者其他">作者其他</h3>
+<ul>
+<li>中国整体的商业环境整体在变好
+<ul>
+<li>很多对接的人都很懂技术</li>
+<li>各种东西越来越正规</li>
+</ul>
+</li>
+<li>健身
+<ul>
+<li>对一个技术人来说，健身十分重要</li>
+<li>融资既是好事又是坏事</li>
+</ul>
+</li>
+<li>融资
+<ul>
+<li>寒冬是辩证的</li>
+<li>寒冬是磨好刀</li>
+</ul>
+</li>
+<li>技术创业什么时候放弃
+<ul>
+<li>实在开不出工资，又没有人愿意跟着干下去，自己一个也没有办法干下去的时候吧</li>
+</ul>
+</li>
+<li>大公司-内部创业
+<ul>
+<li>在大公司中想要出人头地，当上大佬</li>
+<li>找大头讲新的主义，说服老板给你资源做新的东西
+<ul>
+<li>然后自己招兵买马</li>
+</ul>
+</li>
+<li>一定要和老板多交流</li>
+</ul>
+</li>
+<li>创业要找到自己有可能做出成绩的地方</li>
+<li>分布式测试如何做
+<ul>
+<li>一流的技术产品一定有自己开发的测试产品</li>
+</ul>
+</li>
+<li>最顶尖的研发人员一定要能做出自己的测试工具</li>
+<li>如何发展第一个客户？
+<ul>
+<li>一定要找到自己产品解决的痛点中感到最痛的客户
+<ul>
+<li>他才愿意为你买单</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一定要多看书
+<ul>
+<li>比如：技术出身的要看一看做市场/营销的书</li>
+<li>进入行业前一定要做主功课
+<ul>
+<li>避免做了伪需求</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>《创新者的窘境》</li>
+<li>《从0到1》</li>
+<li>《跨越鸿沟》</li>
+<li>病毒式传播</li>
+<li>《分传》</li>
+<li>努力看中文原版材料
+<ul>
+<li>包括文章</li>
+<li>书籍</li>
+<li>甚至包括营销方面的</li>
+<li>硬着头皮啃英文</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[佛系“连载”中]一次服务器被吸血挖矿引发的思考]]></title>
+        <id>https://fwangzil.github.io/post/todo-one/</id>
+        <link href="https://fwangzil.github.io/post/todo-one/">
+        </link>
+        <updated>2020-04-14T07:55:35.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>[计划中]记一次ctop实验的意外发现...</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p>[计划中]记一次ctop实验的意外发现...</p>
+</blockquote>
+<!-- more -->
+<h2 id="故事的开始">故事的开始:</h2>
+<p>​		这是一个平常的一天，我本来只是想随便登上自己的小鸡看一看（这次换到滴滴云了），在建立SSH连接就比平时慢了十几秒时我就隐隐约约感收到哪里不对了。直到我正式开始在黑黢黢的窗口中键入命令时我的不安到达了巅峰了，一个字——卡！我心一凉，我这都没开几个端口，密码已经不算简单了还是被搞了吗？</p>
+<p>​		果不其然，top一看，有一个眼熟的流氓进程吃掉了我的脑子（哦，不服务器的CPU）</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[单核小鸡上的Minikube实践（一）]]></title>
+        <id>https://fwangzil.github.io/post/minikube-one/</id>
+        <link href="https://fwangzil.github.io/post/minikube-one/">
+        </link>
+        <updated>2020-04-14T06:57:19.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="零写在前面">零,写在前面</h2>
+<p>先大概说一下这次用来实验的服务器的状态:</p>
+<blockquote>
+<p>服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&gt;上失败了无数次的minikube的安装...</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="零写在前面">零,写在前面</h2>
+<p>先大概说一下这次用来实验的服务器的状态:</p>
+<blockquote>
+<p>服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&gt;上失败了无数次的minikube的安装...</p>
+</blockquote>
+<!-- more -->
+<blockquote>
+<p>服务器的配置入下:</p>
+</blockquote>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:30:48]
+$ uname -a
+Linux VM-253eb12c-e466-4202-b8eb-7892ae3ed8db 4.9.0-4-amd64 #1 SMP Debian 4.9.51-1 (2017-09-28) x86_64 GNU/Linux
+
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:31:06]
+$ head -n 1 /etc/issue
+Debian GNU/Linux 9 \n \l
+
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:31:10]
+$ cat /proc/cpuinfo
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 79
+model name	: Intel(R) Xeon(R) CPU E5-2683 v4 @ 2.10GHz
+stepping	: 1
+microcode	: 0xb00002a
+cpu MHz		: 2098.882
+cache size	: 40960 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt arat
+bugs		:
+bogomips	: 4199.99
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management:
+
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:31:14]
+$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:            978         763          58           0         156          80
+Swap:          4095         383        3712
+</code></pre>
+<blockquote>
+<p>接下来就开始安装minikube了<br>
+docker相关的安装,大家应该都很熟悉这次就不写了</p>
+</blockquote>
+<h2 id="一安装minukube">一,安装Minukube</h2>
+<h3 id="1安装kubectl">1.安装kubectl</h3>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools [17:50:52] C:130
+$ wget &quot;https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl&quot; -O &quot;/usr/local/bin/kubectl&quot;
+--2020-04-13 17:50:57--  https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl
+Resolving storage.googleapis.com (storage.googleapis.com)... 34.64.4.112, 2404:6800:4008:801::2010
+Connecting to storage.googleapis.com (storage.googleapis.com)|34.64.4.112|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 44027904 (42M) [application/octet-stream]
+Saving to: ‘/usr/local/bin/kubectl’
+
+/usr/local/bin/kubectl              100%[==================================================================&gt;]  41.99M  2.38MB/s    in 31s
+
+2020-04-13 17:51:29 (1.37 MB/s) - ‘/usr/local/bin/kubectl’ saved [44027904/44027904]
+</code></pre>
+<p>这个地方如果使用的是debian系的Linux发行版，也可以选择使用</p>
+<pre><code class="language-shell">$ sudo snap install kubectl --classic
+来安装kubectl
+</code></pre>
+<h3 id="2下载minikube">2.下载minikube</h3>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools [17:54:11] C:1
+$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+&gt;   &amp;&amp; chmod +x minikube
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0^C
+
+</code></pre>
+<ul>
+<li>
+<p>讲道理应该会有不少人像我第一次一样，在minikube二进制文件的获取过程中就会被高高的某堵墙拦截下来（国内服务器）</p>
+</li>
+<li>
+<p>这时候我选择的方法是在本地用自己的电脑下下载下来然后传到服务器上</p>
+</li>
+</ul>
+<pre><code class="language-shell"># 重命名二进制文件
+mv minikube-linux-amd64 minikube
+# 赋予可执行权限
+chmod +x minikube
+# 移动安装minikube到path中
+sudo mkdir -p /usr/local/bin/
+sudo install minikube /usr/local/bin/
+
+</code></pre>
+<h2 id="二启动minikube">二，启动minikube</h2>
+<ul>
+<li>接下来我就把我今天安装中踩过的坑一个一个记录下来，给看到这篇文章的小伙伴一个参考:</li>
+</ul>
+<h3 id="21-直接启动">2.1 直接启动</h3>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:03:52]
+$ minikube start
+* minikube v1.9.2 on Debian 9.12
+* Automatically selected the docker driver
+* The &quot;docker&quot; driver should not be used with root privileges.
+* If you are running minikube within a VM, consider using --driver=none:
+*   https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+
+</code></pre>
+<p>可以看到我们在默认的Hypervisor环境下是不能以root权限运行minikube的，下面摘引一段官方的Hypervisor教程</p>
+<h4 id="安装-hypervisor">安装 Hypervisor</h4>
+<p>如果还没有装过 hypervisor，请选择以下方式之一进行安装：</p>
+<p>• KVM，也使用了 QEMU</p>
+<p>• VirtualBox</p>
+<p>Minikube 还支持使用一个 --vm-driver=none 选项，让 Kubernetes 组件运行在主机中，而不是在 VM 中。 使用这种驱动方式需要 Docker 和 Linux 环境，但不需要 hypervisor。</p>
+<p>如果你在 Debian 系的 OS 中使用了 none 这种驱动方式，请使用 .deb 包安装 Docker，不要使用 snap 包的方式，Minikube 不支持这种方式。 你可以从 Docker 下载 .deb 包。</p>
+<pre><code>警告:
+
+none VM 驱动方式存在导致安全和数据丢失的问题。 使用 --vm-driver=none 之前，请参考这个文档获取详细信息。
+</code></pre>
+<p>Minikube 还支持另外一个类似于 Docker 驱动的方式 vm-driver=podman。 使用超级用户权限（root 用户）运行 Podman 可以最好的确保容器具有足够的权限使用你操作系统上的所有特性。</p>
+<pre><code>警告:
+
+Podman 驱动方式需要以 root 用户身份运行容器，因为普通用户帐户没有足够的权限使用容器运行可能需要的操作系统上的所有特性。
+</code></pre>
+<p><strong>最后我选择直接用  --vm-driver = none 启动minikube（其实就是懒得装Hypervisor了......）</strong></p>
+<h3 id="22-start-drivernone">2.2 start --driver=none</h3>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:06:22] C:69
+$ minikube start --driver=none
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on user configuration
+X Sorry, Kubernetes v1.18.0 requires conntrack to be installed in root's path
+</code></pre>
+<p>根据提示安装conntrack</p>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:06:38] C:78
+$ apt install conntrack
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  conntrack
+0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+Need to get 32.9 kB of archives.
+After this operation, 104 kB of additional disk space will be used.
+Get:1 http://mirrors.163.com/debian stretch/main amd64 conntrack amd64 1:1.4.4+snapshot20161117-5 [32.9 kB]
+Fetched 32.9 kB in 0s (723 kB/s)
+Selecting previously unselected package conntrack.
+(Reading database ... 72364 files and directories currently installed.)
+Preparing to unpack .../conntrack_1%3a1.4.4+snapshot20161117-5_amd64.deb ...
+Unpacking conntrack (1:1.4.4+snapshot20161117-5) ...
+Setting up conntrack (1:1.4.4+snapshot20161117-5) ...
+
+</code></pre>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:08:16]
+$ minikube start --driver=none
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on user configuration
+* Starting control plane node  in cluster minikube
+* Running on localhost (CPUs=1, Memory=978MB, Disk=35784MB) ...
+* OS release is Debian GNU/Linux 9 (stretch)
+* Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+! This bare metal machine is having trouble accessing https://k8s.gcr.io
+* To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+    &gt; kubectl.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    &gt; kubelet.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    &gt; kubeadm.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    &gt; kubeadm: 37.96 MiB / 37.96 MiB [---------------] 100.00% 1.39 MiB p/s 28s
+    &gt; kubectl: 41.98 MiB / 41.98 MiB [---------------] 100.00% 1.09 MiB p/s 39s
+    &gt; kubelet: 108.01 MiB / 108.01 MiB [-------------] 100.00% 1.95 MiB p/s 56s
+! initialization failed, will try again: run: /bin/bash -c &quot;sudo env PATH=/var/lib/minikube/binaries/v1.18.0:$PATH kubeadm init --config /var/tmp/minikube/kubeadm.yaml  --ignore-preflight-errors=DirAvailable--etc-kubernetes-manifests,DirAvailable--var-lib-minikube,DirAvailable--var-lib-minikube-etcd,FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml,FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml,FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml,FileAvailable--etc-kubernetes-manifests-etcd.yaml,Port-10250,Swap,SystemVerification&quot;: exit status 1
+stdout:
+[init] Using Kubernetes version: v1.18.0
+[preflight] Running pre-flight checks
+
+stderr:
+W0413 18:09:22.694854  112079 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
+	[WARNING IsDockerSystemdCheck]: detected &quot;cgroupfs&quot; as the Docker cgroup driver. The recommended driver is &quot;systemd&quot;. Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING Swap]: running with swap on is not supported. Please disable swap
+	[WARNING FileExisting-ebtables]: ebtables not found in system path
+	[WARNING FileExisting-ethtool]: ethtool not found in system path
+	[WARNING FileExisting-socat]: socat not found in system path
+	[WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR NumCPU]: the number of available CPUs 1 is less than the required 2
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+
+*
+X Error starting cluster: run: /bin/bash -c &quot;sudo env PATH=/var/lib/minikube/binaries/v1.18.0:$PATH kubeadm init --config /var/tmp/minikube/kubeadm.yaml  --ignore-preflight-errors=DirAvailable--etc-kubernetes-manifests,DirAvailable--var-lib-minikube,DirAvailable--var-lib-minikube-etcd,FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml,FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml,FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml,FileAvailable--etc-kubernetes-manifests-etcd.yaml,Port-10250,Swap,SystemVerification&quot;: exit status 1
+stdout:
+[init] Using Kubernetes version: v1.18.0
+[preflight] Running pre-flight checks
+
+stderr:
+W0413 18:09:24.195084  112217 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
+	[WARNING IsDockerSystemdCheck]: detected &quot;cgroupfs&quot; as the Docker cgroup driver. The recommended driver is &quot;systemd&quot;. Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING Swap]: running with swap on is not supported. Please disable swap
+	[WARNING FileExisting-ebtables]: ebtables not found in system path
+	[WARNING FileExisting-ethtool]: ethtool not found in system path
+	[WARNING FileExisting-socat]: socat not found in system path
+	[WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR NumCPU]: the number of available CPUs 1 is less than the required 2
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+
+*
+* minikube is exiting due to an error. If the above message is not useful, open an issue:
+  - https://github.com/kubernetes/minikube/issues/new/choose
+
+</code></pre>
+<blockquote>
+<p>根据错误提示发现必须有两个cpu才能使用启动minikube，穷逼怎么办呢，好在官方还是支持强行一个cpu启动的</p>
+</blockquote>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:09:25] C:70
+$ minikube start --driver=none --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus 1
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on existing profile
+! The 'none' driver does not respect the --cpus flag
+* Starting control plane node  in cluster minikube
+* Restarting existing none bare metal machine for &quot;minikube&quot; ...
+* OS release is Debian GNU/Linux 9 (stretch)
+* Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+  - kubeadm.ignore-preflight-errors=NumCPU
+! This bare metal machine is having trouble accessing https://k8s.gcr.io
+* To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+
+</code></pre>
+<p>好吧，又出现了经典得网络问题，上代理</p>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:13:20] C:130
+$ minikube start --driver=none --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus 1 --image-repository=registry.cn-hangzhou.a
+liyuncs.com/google_containers
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on existing profile
+! The 'none' driver does not respect the --cpus flag
+* Using image repository registry.cn-hangzhou.aliyuncs.com/google_containers
+* Starting control plane node  in cluster minikube
+* Updating the running none &quot;minikube&quot; bare metal machine ...
+* OS release is Debian GNU/Linux 9 (stretch)
+* Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+  - kubeadm.ignore-preflight-errors=NumCPU
+* Enabling addons: default-storageclass, storage-provisioner
+* Configuring local host environment ...
+*
+! The 'none' driver is designed for experts who need to integrate with an existing VM
+* Most users should use the newer 'docker' driver instead, which does not require root!
+* For more information, see: https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+*
+! kubectl and minikube configuration will be stored in /root
+! To use kubectl or minikube commands as your own user, you may need to relocate them. For example, to overwrite your own settings, run:
+*
+  - sudo mv /root/.kube /root/.minikube $HOME
+  - sudo chown -R $USER $HOME/.kube $HOME/.minikube
+*
+* This can also be done automatically by setting the env var CHANGE_MINIKUBE_NONE_USER=true
+* Done! kubectl is now configured to use &quot;minikube&quot;
+* For best results, install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+</code></pre>
+<p><strong>至此，minikube便成功启动起来了，我们简单验证一下</strong></p>
+<h2 id="三检查minikube安装状态">三，检查minikube安装状态</h2>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:17:44] C:126
+$ minikube status
+
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+</code></pre>
+<p><strong>嗯没有问题，下一篇我们再来基于minikube做一些k8s的实战。</strong></p>
+]]></content>
+    </entry>
+</feed>

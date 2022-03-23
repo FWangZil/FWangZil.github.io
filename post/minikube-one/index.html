@@ -1,0 +1,644 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>单核小鸡上的Minikube实践（一） - 得寸进尺</title>
+<link rel="shortcut icon" href="https://fwangzil.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://fwangzil.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://fwangzil.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="单核小鸡上的Minikube实践（一） - 得寸进尺 - Atom Feed" href="https://fwangzil.github.io/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-30RSLPP5P1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-30RSLPP5P1');
+  </script>
+    
+
+  <meta name="description" content="零,写在前面
+先大概说一下这次用来实验的服务器的状态:
+
+服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&amp;gt;上失败了无数次的minikube的安装...
+
+
+
+服务器的..." />
+  <meta property="og:title" content="单核小鸡上的Minikube实践（一） - 得寸进尺">
+  <meta property="og:description" content="零,写在前面
+先大概说一下这次用来实验的服务器的状态:
+
+服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&amp;gt;上失败了无数次的minikube的安装...
+
+
+
+服务器的..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://fwangzil.github.io/post/minikube-one/" />
+  <meta property="og:image" content="https://fwangzil.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="单核小鸡上的Minikube实践（一） - 得寸进尺">
+  <meta name="twitter:description" content="零,写在前面
+先大概说一下这次用来实验的服务器的状态:
+
+服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&amp;gt;上失败了无数次的minikube的安装...
+
+
+
+服务器的...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://fwangzil.github.io/post/minikube-one/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://fwangzil.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://fwangzil.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      得寸进尺
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          单核小鸡上的Minikube实践（一）
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-04-14 · 15 min read</div>
+          
+            <a href="https://fwangzil.github.io/tag/47Ep8_kXL/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              docker
+            </a>
+          
+            <a href="https://fwangzil.github.io/tag/tBZUpxEVH/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              技术
+            </a>
+          
+            <a href="https://fwangzil.github.io/tag/Hcc2rynNsV/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              运维
+            </a>
+          
+            <a href="https://fwangzil.github.io/tag/XtueTutvjE/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              k8s
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h2 id="零写在前面">零,写在前面</h2>
+<p>先大概说一下这次用来实验的服务器的状态:</p>
+<blockquote>
+<p>服务器是白嫖的国内某厂商的一个月试用版,申请之后一直也没有排上用场,今天想着闲着也是闲着就拿来试试之前自己在黑苹果&gt;上失败了无数次的minikube的安装...</p>
+</blockquote>
+<!-- more -->
+<blockquote>
+<p>服务器的配置入下:</p>
+</blockquote>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:30:48]
+$ uname -a
+Linux VM-253eb12c-e466-4202-b8eb-7892ae3ed8db 4.9.0-4-amd64 #1 SMP Debian 4.9.51-1 (2017-09-28) x86_64 GNU/Linux
+
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:31:06]
+$ head -n 1 /etc/issue
+Debian GNU/Linux 9 \n \l
+
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:31:10]
+$ cat /proc/cpuinfo
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 79
+model name	: Intel(R) Xeon(R) CPU E5-2683 v4 @ 2.10GHz
+stepping	: 1
+microcode	: 0xb00002a
+cpu MHz		: 2098.882
+cache size	: 40960 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt arat
+bugs		:
+bogomips	: 4199.99
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management:
+
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:31:14]
+$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:            978         763          58           0         156          80
+Swap:          4095         383        3712
+</code></pre>
+<blockquote>
+<p>接下来就开始安装minikube了<br>
+docker相关的安装,大家应该都很熟悉这次就不写了</p>
+</blockquote>
+<h2 id="一安装minukube">一,安装Minukube</h2>
+<h3 id="1安装kubectl">1.安装kubectl</h3>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools [17:50:52] C:130
+$ wget &quot;https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl&quot; -O &quot;/usr/local/bin/kubectl&quot;
+--2020-04-13 17:50:57--  https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl
+Resolving storage.googleapis.com (storage.googleapis.com)... 34.64.4.112, 2404:6800:4008:801::2010
+Connecting to storage.googleapis.com (storage.googleapis.com)|34.64.4.112|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 44027904 (42M) [application/octet-stream]
+Saving to: ‘/usr/local/bin/kubectl’
+
+/usr/local/bin/kubectl              100%[==================================================================&gt;]  41.99M  2.38MB/s    in 31s
+
+2020-04-13 17:51:29 (1.37 MB/s) - ‘/usr/local/bin/kubectl’ saved [44027904/44027904]
+</code></pre>
+<p>这个地方如果使用的是debian系的Linux发行版，也可以选择使用</p>
+<pre><code class="language-shell">$ sudo snap install kubectl --classic
+来安装kubectl
+</code></pre>
+<h3 id="2下载minikube">2.下载minikube</h3>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools [17:54:11] C:1
+$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+&gt;   &amp;&amp; chmod +x minikube
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0^C
+
+</code></pre>
+<ul>
+<li>
+<p>讲道理应该会有不少人像我第一次一样，在minikube二进制文件的获取过程中就会被高高的某堵墙拦截下来（国内服务器）</p>
+</li>
+<li>
+<p>这时候我选择的方法是在本地用自己的电脑下下载下来然后传到服务器上</p>
+</li>
+</ul>
+<pre><code class="language-shell"># 重命名二进制文件
+mv minikube-linux-amd64 minikube
+# 赋予可执行权限
+chmod +x minikube
+# 移动安装minikube到path中
+sudo mkdir -p /usr/local/bin/
+sudo install minikube /usr/local/bin/
+
+</code></pre>
+<h2 id="二启动minikube">二，启动minikube</h2>
+<ul>
+<li>接下来我就把我今天安装中踩过的坑一个一个记录下来，给看到这篇文章的小伙伴一个参考:</li>
+</ul>
+<h3 id="21-直接启动">2.1 直接启动</h3>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:03:52]
+$ minikube start
+* minikube v1.9.2 on Debian 9.12
+* Automatically selected the docker driver
+* The &quot;docker&quot; driver should not be used with root privileges.
+* If you are running minikube within a VM, consider using --driver=none:
+*   https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+
+</code></pre>
+<p>可以看到我们在默认的Hypervisor环境下是不能以root权限运行minikube的，下面摘引一段官方的Hypervisor教程</p>
+<h4 id="安装-hypervisor">安装 Hypervisor</h4>
+<p>如果还没有装过 hypervisor，请选择以下方式之一进行安装：</p>
+<p>• KVM，也使用了 QEMU</p>
+<p>• VirtualBox</p>
+<p>Minikube 还支持使用一个 --vm-driver=none 选项，让 Kubernetes 组件运行在主机中，而不是在 VM 中。 使用这种驱动方式需要 Docker 和 Linux 环境，但不需要 hypervisor。</p>
+<p>如果你在 Debian 系的 OS 中使用了 none 这种驱动方式，请使用 .deb 包安装 Docker，不要使用 snap 包的方式，Minikube 不支持这种方式。 你可以从 Docker 下载 .deb 包。</p>
+<pre><code>警告:
+
+none VM 驱动方式存在导致安全和数据丢失的问题。 使用 --vm-driver=none 之前，请参考这个文档获取详细信息。
+</code></pre>
+<p>Minikube 还支持另外一个类似于 Docker 驱动的方式 vm-driver=podman。 使用超级用户权限（root 用户）运行 Podman 可以最好的确保容器具有足够的权限使用你操作系统上的所有特性。</p>
+<pre><code>警告:
+
+Podman 驱动方式需要以 root 用户身份运行容器，因为普通用户帐户没有足够的权限使用容器运行可能需要的操作系统上的所有特性。
+</code></pre>
+<p><strong>最后我选择直接用  --vm-driver = none 启动minikube（其实就是懒得装Hypervisor了......）</strong></p>
+<h3 id="22-start-drivernone">2.2 start --driver=none</h3>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:06:22] C:69
+$ minikube start --driver=none
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on user configuration
+X Sorry, Kubernetes v1.18.0 requires conntrack to be installed in root's path
+</code></pre>
+<p>根据提示安装conntrack</p>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:06:38] C:78
+$ apt install conntrack
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  conntrack
+0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+Need to get 32.9 kB of archives.
+After this operation, 104 kB of additional disk space will be used.
+Get:1 http://mirrors.163.com/debian stretch/main amd64 conntrack amd64 1:1.4.4+snapshot20161117-5 [32.9 kB]
+Fetched 32.9 kB in 0s (723 kB/s)
+Selecting previously unselected package conntrack.
+(Reading database ... 72364 files and directories currently installed.)
+Preparing to unpack .../conntrack_1%3a1.4.4+snapshot20161117-5_amd64.deb ...
+Unpacking conntrack (1:1.4.4+snapshot20161117-5) ...
+Setting up conntrack (1:1.4.4+snapshot20161117-5) ...
+
+</code></pre>
+<pre><code class="language-shell"># root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:08:16]
+$ minikube start --driver=none
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on user configuration
+* Starting control plane node  in cluster minikube
+* Running on localhost (CPUs=1, Memory=978MB, Disk=35784MB) ...
+* OS release is Debian GNU/Linux 9 (stretch)
+* Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+! This bare metal machine is having trouble accessing https://k8s.gcr.io
+* To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+    &gt; kubectl.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    &gt; kubelet.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    &gt; kubeadm.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    &gt; kubeadm: 37.96 MiB / 37.96 MiB [---------------] 100.00% 1.39 MiB p/s 28s
+    &gt; kubectl: 41.98 MiB / 41.98 MiB [---------------] 100.00% 1.09 MiB p/s 39s
+    &gt; kubelet: 108.01 MiB / 108.01 MiB [-------------] 100.00% 1.95 MiB p/s 56s
+! initialization failed, will try again: run: /bin/bash -c &quot;sudo env PATH=/var/lib/minikube/binaries/v1.18.0:$PATH kubeadm init --config /var/tmp/minikube/kubeadm.yaml  --ignore-preflight-errors=DirAvailable--etc-kubernetes-manifests,DirAvailable--var-lib-minikube,DirAvailable--var-lib-minikube-etcd,FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml,FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml,FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml,FileAvailable--etc-kubernetes-manifests-etcd.yaml,Port-10250,Swap,SystemVerification&quot;: exit status 1
+stdout:
+[init] Using Kubernetes version: v1.18.0
+[preflight] Running pre-flight checks
+
+stderr:
+W0413 18:09:22.694854  112079 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
+	[WARNING IsDockerSystemdCheck]: detected &quot;cgroupfs&quot; as the Docker cgroup driver. The recommended driver is &quot;systemd&quot;. Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING Swap]: running with swap on is not supported. Please disable swap
+	[WARNING FileExisting-ebtables]: ebtables not found in system path
+	[WARNING FileExisting-ethtool]: ethtool not found in system path
+	[WARNING FileExisting-socat]: socat not found in system path
+	[WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR NumCPU]: the number of available CPUs 1 is less than the required 2
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+
+*
+X Error starting cluster: run: /bin/bash -c &quot;sudo env PATH=/var/lib/minikube/binaries/v1.18.0:$PATH kubeadm init --config /var/tmp/minikube/kubeadm.yaml  --ignore-preflight-errors=DirAvailable--etc-kubernetes-manifests,DirAvailable--var-lib-minikube,DirAvailable--var-lib-minikube-etcd,FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml,FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml,FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml,FileAvailable--etc-kubernetes-manifests-etcd.yaml,Port-10250,Swap,SystemVerification&quot;: exit status 1
+stdout:
+[init] Using Kubernetes version: v1.18.0
+[preflight] Running pre-flight checks
+
+stderr:
+W0413 18:09:24.195084  112217 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
+	[WARNING IsDockerSystemdCheck]: detected &quot;cgroupfs&quot; as the Docker cgroup driver. The recommended driver is &quot;systemd&quot;. Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING Swap]: running with swap on is not supported. Please disable swap
+	[WARNING FileExisting-ebtables]: ebtables not found in system path
+	[WARNING FileExisting-ethtool]: ethtool not found in system path
+	[WARNING FileExisting-socat]: socat not found in system path
+	[WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR NumCPU]: the number of available CPUs 1 is less than the required 2
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+
+*
+* minikube is exiting due to an error. If the above message is not useful, open an issue:
+  - https://github.com/kubernetes/minikube/issues/new/choose
+
+</code></pre>
+<blockquote>
+<p>根据错误提示发现必须有两个cpu才能使用启动minikube，穷逼怎么办呢，好在官方还是支持强行一个cpu启动的</p>
+</blockquote>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:09:25] C:70
+$ minikube start --driver=none --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus 1
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on existing profile
+! The 'none' driver does not respect the --cpus flag
+* Starting control plane node  in cluster minikube
+* Restarting existing none bare metal machine for &quot;minikube&quot; ...
+* OS release is Debian GNU/Linux 9 (stretch)
+* Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+  - kubeadm.ignore-preflight-errors=NumCPU
+! This bare metal machine is having trouble accessing https://k8s.gcr.io
+* To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+
+</code></pre>
+<p>好吧，又出现了经典得网络问题，上代理</p>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:13:20] C:130
+$ minikube start --driver=none --extra-config=kubeadm.ignore-preflight-errors=NumCPU --force --cpus 1 --image-repository=registry.cn-hangzhou.a
+liyuncs.com/google_containers
+* minikube v1.9.2 on Debian 9.12
+* Using the none driver based on existing profile
+! The 'none' driver does not respect the --cpus flag
+* Using image repository registry.cn-hangzhou.aliyuncs.com/google_containers
+* Starting control plane node  in cluster minikube
+* Updating the running none &quot;minikube&quot; bare metal machine ...
+* OS release is Debian GNU/Linux 9 (stretch)
+* Preparing Kubernetes v1.18.0 on Docker 19.03.8 ...
+  - kubeadm.ignore-preflight-errors=NumCPU
+* Enabling addons: default-storageclass, storage-provisioner
+* Configuring local host environment ...
+*
+! The 'none' driver is designed for experts who need to integrate with an existing VM
+* Most users should use the newer 'docker' driver instead, which does not require root!
+* For more information, see: https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+*
+! kubectl and minikube configuration will be stored in /root
+! To use kubectl or minikube commands as your own user, you may need to relocate them. For example, to overwrite your own settings, run:
+*
+  - sudo mv /root/.kube /root/.minikube $HOME
+  - sudo chown -R $USER $HOME/.kube $HOME/.minikube
+*
+* This can also be done automatically by setting the env var CHANGE_MINIKUBE_NONE_USER=true
+* Done! kubectl is now configured to use &quot;minikube&quot;
+* For best results, install kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+</code></pre>
+<p><strong>至此，minikube便成功启动起来了，我们简单验证一下</strong></p>
+<h2 id="三检查minikube安装状态">三，检查minikube安装状态</h2>
+<pre><code class="language-shell">
+# root @ VM-253eb12c-e466-4202-b8eb-7892ae3ed8db in /home/tools/k8s [18:17:44] C:126
+$ minikube status
+
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+</code></pre>
+<p><strong>嗯没有问题，下一篇我们再来基于minikube做一些k8s的实战。</strong></p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%9B%B6%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">零,写在前面</a></li>
+<li><a href="#%E4%B8%80%E5%AE%89%E8%A3%85minukube">一,安装Minukube</a>
+<ul>
+<li><a href="#1%E5%AE%89%E8%A3%85kubectl">1.安装kubectl</a></li>
+<li><a href="#2%E4%B8%8B%E8%BD%BDminikube">2.下载minikube</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C%E5%90%AF%E5%8A%A8minikube">二，启动minikube</a>
+<ul>
+<li><a href="#21-%E7%9B%B4%E6%8E%A5%E5%90%AF%E5%8A%A8">2.1 直接启动</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85-hypervisor">安装 Hypervisor</a></li>
+</ul>
+</li>
+<li><a href="#22-start-drivernone">2.2 start --driver=none</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E6%A3%80%E6%9F%A5minikube%E5%AE%89%E8%A3%85%E7%8A%B6%E6%80%81">三，检查minikube安装状态</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://fwangzil.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://fwangzil.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+  
+    
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script type="application/javascript" src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="application/javascript">
+
+  var gitalk = new Gitalk({
+    clientID: '641336cf2b6b5b5a8486',
+    clientSecret: '5ad34e7029c1cf31c80816842fd1257c3272fa98',
+    repo: 'FWangZil.github.io',
+    owner: 'FWangZil',
+    admin: ['FWangZil'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+    
+  
+</body>
+
+</html>
