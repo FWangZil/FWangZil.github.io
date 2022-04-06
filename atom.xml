@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fwangzil.github.io</id>
     <title>得寸进尺</title>
-    <updated>2022-03-24T00:13:38.531Z</updated>
+    <updated>2022-04-06T15:45:49.536Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fwangzil.github.io"/>
     <link rel="self" href="https://fwangzil.github.io/atom.xml"/>
@@ -17,8 +17,7 @@
         </link>
         <updated>2022-03-23T15:55:01.000Z</updated>
         <content type="html"><![CDATA[<h2 id="2022-03-23">2022-03-23</h2>
-<h3 id="217-存在重复元素easy">217. 存在重复元素【easy】</h3>
-<p>https://leetcode-cn.com/problems/contains-duplicate/submissions/</p>
+<h3 id="217-存在重复元素">217. <a href="https://leetcode-cn.com/problems/contains-duplicate/submissions/">存在重复元素</a></h3>
 <pre><code class="language-rust">use std::collections::HashMap;
 impl Solution {
     pub fn contains_duplicate(nums: Vec&lt;i32&gt;) -&gt; bool {
@@ -37,6 +36,21 @@ impl Solution {
     }
 }
 
+</code></pre>
+<h2 id="2022-04-06">2022-04-06</h2>
+<h3 id="53-最大子数和">53. <a href="https://leetcode-cn.com/problems/maximum-subarray/">最大子数和</a></h3>
+<pre><code class="language-rust">impl Solution {
+    pub fn max_sub_array(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        use std::cmp::max;
+        let mut ans = nums[0];
+        let mut sum = 0;
+        for x in nums {
+            sum = x + max(sum, 0);
+            ans = max(ans, sum);
+        }
+        return ans;
+    }
+}
 </code></pre>
 ]]></content>
     </entry>

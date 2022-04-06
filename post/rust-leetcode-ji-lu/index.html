@@ -24,14 +24,16 @@
     
 
   <meta name="description" content="2022-03-23
-217. 存在重复元素【easy】
-https://leetcode-cn.com/problems/contains-duplicate/submissions/
-use std::collections::Hash..." />
+217. 存在重复元素
+use std::collections::HashMap;
+impl Solution {
+    pub fn contains_duplicate(nums: Vec&amp;lt;i32&amp;gt;..." />
   <meta property="og:title" content="Rust Leetcode 记录 - 得寸进尺">
   <meta property="og:description" content="2022-03-23
-217. 存在重复元素【easy】
-https://leetcode-cn.com/problems/contains-duplicate/submissions/
-use std::collections::Hash..." />
+217. 存在重复元素
+use std::collections::HashMap;
+impl Solution {
+    pub fn contains_duplicate(nums: Vec&amp;lt;i32&amp;gt;..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://fwangzil.github.io/post/rust-leetcode-ji-lu/" />
   <meta property="og:image" content="https://fwangzil.github.io/images/avatar.png">
@@ -39,9 +41,10 @@ use std::collections::Hash..." />
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="Rust Leetcode 记录 - 得寸进尺">
   <meta name="twitter:description" content="2022-03-23
-217. 存在重复元素【easy】
-https://leetcode-cn.com/problems/contains-duplicate/submissions/
-use std::collections::Hash...">
+217. 存在重复元素
+use std::collections::HashMap;
+impl Solution {
+    pub fn contains_duplicate(nums: Vec&amp;lt;i32&amp;gt;...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://fwangzil.github.io/post/rust-leetcode-ji-lu/">
 
@@ -72,8 +75,7 @@ use std::collections::Hash...">
         </div>
         <div class="markdown mb-8" v-pre>
           <h2 id="2022-03-23">2022-03-23</h2>
-<h3 id="217-存在重复元素easy">217. 存在重复元素【easy】</h3>
-<p>https://leetcode-cn.com/problems/contains-duplicate/submissions/</p>
+<h3 id="217-存在重复元素">217. <a href="https://leetcode-cn.com/problems/contains-duplicate/submissions/">存在重复元素</a></h3>
 <pre><code class="language-rust">use std::collections::HashMap;
 impl Solution {
     pub fn contains_duplicate(nums: Vec&lt;i32&gt;) -&gt; bool {
@@ -92,6 +94,21 @@ impl Solution {
     }
 }
 
+</code></pre>
+<h2 id="2022-04-06">2022-04-06</h2>
+<h3 id="53-最大子数和">53. <a href="https://leetcode-cn.com/problems/maximum-subarray/">最大子数和</a></h3>
+<pre><code class="language-rust">impl Solution {
+    pub fn max_sub_array(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        use std::cmp::max;
+        let mut ans = nums[0];
+        let mut sum = 0;
+        for x in nums {
+            sum = x + max(sum, 0);
+            ans = max(ans, sum);
+        }
+        return ans;
+    }
+}
 </code></pre>
 
         </div>
@@ -144,7 +161,12 @@ impl Solution {
 <ul>
 <li><a href="#2022-03-23">2022-03-23</a>
 <ul>
-<li><a href="#217-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0easy">217. 存在重复元素【easy】</a></li>
+<li><a href="#217-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0">217. 存在重复元素</a></li>
+</ul>
+</li>
+<li><a href="#2022-04-06">2022-04-06</a>
+<ul>
+<li><a href="#53-%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E5%92%8C">53. 最大子数和</a></li>
 </ul>
 </li>
 </ul>
