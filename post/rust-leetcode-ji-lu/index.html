@@ -70,12 +70,12 @@ impl Solution {
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2022-03-23 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2022-03-23 · 2 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
           <h2 id="2022-03-23">2022-03-23</h2>
-<h3 id="217-存在重复元素">217. <a href="https://leetcode-cn.com/problems/contains-duplicate/submissions/">存在重复元素</a></h3>
+<h3 id="217-存在重复元素"><a href="https://leetcode-cn.com/problems/contains-duplicate/submissions/">217. 存在重复元素</a></h3>
 <pre><code class="language-rust">use std::collections::HashMap;
 impl Solution {
     pub fn contains_duplicate(nums: Vec&lt;i32&gt;) -&gt; bool {
@@ -96,7 +96,7 @@ impl Solution {
 
 </code></pre>
 <h2 id="2022-04-06">2022-04-06</h2>
-<h3 id="53-最大子数和">53. <a href="https://leetcode-cn.com/problems/maximum-subarray/">最大子数和</a></h3>
+<h3 id="53-最大子数和"><a href="https://leetcode-cn.com/problems/maximum-subarray/">53. 最大子数和</a></h3>
 <pre><code class="language-rust">impl Solution {
     pub fn max_sub_array(nums: Vec&lt;i32&gt;) -&gt; i32 {
         use std::cmp::max;
@@ -111,7 +111,7 @@ impl Solution {
 }
 </code></pre>
 <h2 id="2022-04-11">2022-04-11</h2>
-<h4 id="136只出现一次的数字">136.<a href="https://leetcode-cn.com/problems/single-number/submissions/">只出现一次的数字</a></h4>
+<h4 id="136只出现一次的数字"><a href="https://leetcode-cn.com/problems/single-number/submissions/">136.只出现一次的数字</a></h4>
 <pre><code class="language-rust">impl Solution {
     pub fn single_number(nums: Vec&lt;i32&gt;) -&gt; i32 {
         use std::collections::HashMap;
@@ -123,6 +123,26 @@ impl Solution {
         for num in &amp;nums {
             let count = haveNum.entry(num).or_insert(0);
             if *count == 1 {
+                return *num;
+            }
+        }
+        return 0;
+    }
+}
+</code></pre>
+<h3 id="2022-04-12">2022-04-12</h3>
+<h4 id="169-多数元素httpsleetcode-cncomproblemsmajority-element">(169. 多数元素)[https://leetcode-cn.com/problems/majority-element/]</h4>
+<pre><code class="language-rust">impl Solution {
+    pub fn majority_element(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        use std::collections::HashMap;
+        let mut haveNum = HashMap::new();
+        for num in &amp;nums {
+            let count = haveNum.entry(num).or_insert(0);
+            *count += 1;
+        }
+        for num in &amp;nums {
+            let count = haveNum.entry(num).or_insert(0);
+            if *count &gt; nums.len()/2 {
                 return *num;
             }
         }
@@ -193,6 +213,11 @@ impl Solution {
 *
 <ul>
 <li><a href="#136%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97">136.只出现一次的数字</a></li>
+<li><a href="#2022-04-12">2022-04-12</a>
+<ul>
+<li><a href="#169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0httpsleetcode-cncomproblemsmajority-element">(169. 多数元素)[https://leetcode-cn.com/problems/majority-element/]</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
