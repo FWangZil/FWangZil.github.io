@@ -110,6 +110,26 @@ impl Solution {
     }
 }
 </code></pre>
+<h2 id="2022-04-11">2022-04-11</h2>
+<h4 id="136只出现一次的数字">136.<a href="https://leetcode-cn.com/problems/single-number/submissions/">只出现一次的数字</a></h4>
+<pre><code class="language-rust">impl Solution {
+    pub fn single_number(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        use std::collections::HashMap;
+        let mut haveNum = HashMap::new();
+        for num in &amp;nums {
+            let count = haveNum.entry(num).or_insert(0);
+            *count += 1;
+        }
+        for num in &amp;nums {
+            let count = haveNum.entry(num).or_insert(0);
+            if *count == 1 {
+                return *num;
+            }
+        }
+        return 0;
+    }
+}
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -167,6 +187,12 @@ impl Solution {
 <li><a href="#2022-04-06">2022-04-06</a>
 <ul>
 <li><a href="#53-%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E5%92%8C">53. 最大子数和</a></li>
+</ul>
+</li>
+<li><a href="#2022-04-11">2022-04-11</a><br>
+*
+<ul>
+<li><a href="#136%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97">136.只出现一次的数字</a></li>
 </ul>
 </li>
 </ul>
